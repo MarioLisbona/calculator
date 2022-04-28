@@ -1,5 +1,7 @@
 html {
-	background-color: darkgrey;
+	background-image: url("./img/background.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
 	font-size: 25px;
 	box-sizing: border-box;
 }
@@ -19,6 +21,7 @@ p {
 }
 
 .calculator {
+	background-color: #535252;
 	padding: 20px 35px;
 	outline: 3px solid black;
 	border-radius: 8px;
@@ -30,6 +33,7 @@ p {
 }
 
 .display {
+	background-color: #CEDECE;
 	outline: 1px solid black;
 	border-radius: 8px;
 	display: flex;
@@ -54,9 +58,14 @@ p {
 }
 
 .button {
+	background-color: #ECEBEB;
 	outline: 1px solid black;
 	border-radius: 8px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.btnEquals {
+background-color: #FDC280;
 }
