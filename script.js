@@ -31,3 +31,8 @@ function operate(operator, num1, num2){
 			break;
 	}
 }
+
+const calculator = document.querySelector('.calculator');
+calculator.addEventListener('mouseover', () => {
+	console.log('mouse moving');
+})
