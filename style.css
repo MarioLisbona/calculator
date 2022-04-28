@@ -30,6 +30,7 @@ p {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
+	box-shadow: 10px 10px rgb(137,136,136, 0.5);
 }
 
 .display {
@@ -40,6 +41,7 @@ p {
 	flex-direction: column;
 	justify-content: center;
 	align-items: flex-end;
+	margin-bottom: 10px;
 }
 
 .keypad {
