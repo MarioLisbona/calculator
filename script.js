@@ -56,8 +56,7 @@ function btnClickUp(e) {
 	this.style.transform = '';
 }
 
-//functions for displaying buttons selected
-
+//functions for displaying numbers, deleting numbers, clearing the display
 const dspOperation = document.querySelector('.display-operation');
 const dspResult = document.querySelector('.display-result');
 const btnClear = document.querySelector('#btnClear');
@@ -68,7 +67,6 @@ buttons.forEach(button => button.addEventListener('click', displayOperation));
 btnClear.addEventListener('click', clearDisplay);
 btnDelete.addEventListener('click', deleteEntry);
 
-
 function displayOperation(e) {
 	dspOperation.textContent += e.target.textContent;	
 }
@@ -76,7 +74,6 @@ function displayOperation(e) {
 function clearDisplay() {
 	dspOperation.textContent = '';
 }
-
 
 function deleteEntry() {
 	let rawString = dspOperation.textContent;
