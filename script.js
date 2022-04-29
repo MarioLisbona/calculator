@@ -32,7 +32,6 @@ function operate(operator, num1, num2){
 	}
 }
 
-
 //event listeners and functions for button animations
 const buttons = Array.from(document.querySelectorAll('.button'));
 
@@ -57,21 +56,29 @@ function btnClickUp(e) {
 	this.style.transform = '';
 }
 
-
-//test function for outputing to display and clearing display
+//functions for displaying buttons selected
 
 const dspOperation = document.querySelector('.display-operation');
 const dspResult = document.querySelector('.display-result');
 const btnClear = document.querySelector('#btnClear');
+
 
 buttons.forEach(button => button.addEventListener('click', displayOperation));
 btnClear.addEventListener('click', clearDisplay);
 
 
 function displayOperation(e) {
-	dspOperation.textContent += e.target.textContent;
+	dspOperation.textContent += e.target.textContent;	
 }
 
 function clearDisplay() {
 	dspOperation.textContent = '';
 }
+
+
+
+
+
+
+
+
