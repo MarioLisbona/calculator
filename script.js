@@ -32,7 +32,10 @@ function operate(operator, num1, num2){
 	}
 }
 
-const calculator = document.querySelector('.calculator');
-calculator.addEventListener('mouseover', () => {
-	console.log('mouse moving');
-})
+
+const buttons = Array.from(document.querySelectorAll('.button'));
+buttons.forEach(button => button.addEventListener('mouseover', buttonHover));
+
+function buttonHover() {
+	console.log('Hovering over a button');
+}
