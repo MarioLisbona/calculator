@@ -1,5 +1,5 @@
 function add(num1, num2) {
-	return num1 + num2;
+	return parseInt(num1) + parseInt(num2);
 }
 
 function subtract(num1, num2) {
@@ -18,16 +18,16 @@ function operate(operator, num1, num2){
 
 	switch(operator) {
 		case '+':
-			console.log(add(num1, num2));
+			return add(num1, num2);
 			break;
 		case "-":
-			console.log(subtract(num1, num2));
+			return subtract(num1, num2);
 			break;
 		case "*":
-			console.log(multiply(num1, num2));
+			return multiply(num1, num2);
 			break;
 		case "/":
-			console.log(divide(num1, num2));
+			return divide(num1, num2);
 			break;
 	}
 }
@@ -68,34 +68,33 @@ const btnEquals = document.querySelector('#btnEquals');
 const btnOperators = document.querySelectorAll('.operator');
 const btnNumbers = document.querySelectorAll('.number');
 
+
+// btnNumbers.forEach(btnNum => btnNum.addEventListener('click', btnNumber)); //possibly not needed
+
 btnOperators.forEach(btnOp => btnOp.addEventListener('click', btnOperator));
-btnNumbers.forEach(btnNum => btnNum.addEventListener('click', btnNumber));
 buttons.forEach(button => button.addEventListener('click', displayOperation));
 btnClear.addEventListener('click', clearDisplay);
 btnDelete.addEventListener('click', deleteEntry);
 btnEquals.addEventListener('click', performCalculation);
 
 function btnOperator(e) {
-	num1 = dspOperation.textContent;
-	operator = e.target.textContent;
-	console.log('number 1 after operator click', num1);
-	console.log('operator after operator click', operator);
+	num1 = dspOperation.textContent.replace(/[^0-9.]+/g, '').split('').join('');
+
+	if (e.target.textContent === 'x') {
+		operator = '*'
+	} else {
+		operator = e.target.textContent;
+	}	
 }
 
-function btnNumber(e) {
-}
+// //possibly not needed???
+// function btnNumber(e) {
+// }
 
 function performCalculation() {
-	let split = num1.replace(/[^0-9.]+/g, '').split('');
 	let num2Raw = dspOperation.textContent.replace(/[^0-9.]+/g, '').split('');
-	console.log('number 1 and split after equal', num1, split);
-	console.log('number 1len and splitlen after equal', num1.length, split.length);
-	console.log('number 2 after equals click', num2Raw);
-	console.log('operator after equals click', operator);
-	num2 = num2Raw.slice(split.length).join('');
-	console.log('number 1 after filtering', num1);
-	console.log('number 2 after filtering', num2);
-	console.log('operator after filtering', operator);
+	num2 = num2Raw.slice(num1.length).join('');
+	dspResult.textContent = operate(operator, num1, num2);
 	
 }
 
@@ -105,6 +104,11 @@ function displayOperation(e) {
 
 function clearDisplay() {
 	dspOperation.textContent = '';
+	dspResult.textContent = '';
+	num1 = 0;
+	num2 = 0;
+	operator = '';
+	result = 0;
 }
 
 function deleteEntry() {
