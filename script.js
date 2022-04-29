@@ -61,10 +61,12 @@ function btnClickUp(e) {
 const dspOperation = document.querySelector('.display-operation');
 const dspResult = document.querySelector('.display-result');
 const btnClear = document.querySelector('#btnClear');
+const btnDelete = document.querySelector('#btnDelete');
 
 
 buttons.forEach(button => button.addEventListener('click', displayOperation));
 btnClear.addEventListener('click', clearDisplay);
+btnDelete.addEventListener('click', deleteEntry);
 
 
 function displayOperation(e) {
@@ -75,6 +77,12 @@ function clearDisplay() {
 	dspOperation.textContent = '';
 }
 
+
+function deleteEntry() {
+	let rawString = dspOperation.textContent;
+	let fString = rawString.replace(/[^0-9.]+/g, '').split('');	
+	dspOperation.textContent = fString.slice(0, -1).join('');
+}
 
 
 
