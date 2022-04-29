@@ -60,12 +60,18 @@ function btnClickUp(e) {
 
 //test function for outputing to display and clearing display
 
-const displayOp = document.querySelector('.display-operation');
+const dspOperation = document.querySelector('.display-operation');
+const dspResult = document.querySelector('.display-result');
 const btnClear = document.querySelector('#btnClear');
 
-buttons.forEach(button => button.addEventListener('click', testFunction));
+buttons.forEach(button => button.addEventListener('click', displayOperation));
+btnClear.addEventListener('click', clearDisplay);
 
 
-function testFunction(e) {
-	displayOp.textContent += e.target.textContent;	
+function displayOperation(e) {
+	dspOperation.textContent += e.target.textContent;
+}
+
+function clearDisplay() {
+	dspOperation.textContent = '';
 }
