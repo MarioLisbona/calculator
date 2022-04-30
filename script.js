@@ -68,9 +68,6 @@ const btnEquals = document.querySelector('#btnEquals');
 const btnOperators = document.querySelectorAll('.operator');
 const btnNumbers = document.querySelectorAll('.number');
 
-
-// btnNumbers.forEach(btnNum => btnNum.addEventListener('click', btnNumber)); //possibly not needed
-
 btnOperators.forEach(btnOp => btnOp.addEventListener('click', btnOperator));
 buttons.forEach(button => button.addEventListener('click', displayOperation));
 btnClear.addEventListener('click', clearDisplay);
@@ -79,22 +76,26 @@ btnEquals.addEventListener('click', performCalculation);
 
 function btnOperator(e) {
 	num1 = dspOperation.textContent.replace(/[^0-9.]+/g, '').split('').join('');
-
 	if (e.target.textContent === 'x') {
 		operator = '*'
 	} else {
 		operator = e.target.textContent;
-	}	
-}
+	}
+	
+	// console.log(result);
+	// if (result != 0) {
+	// 	num1 = result;
+	// }
+	// console.log('num1 end op operator function', num1);
+	// console.log('result end op operator function', result);
 
-// //possibly not needed???
-// function btnNumber(e) {
-// }
+}
 
 function performCalculation() {
 	let num2Raw = dspOperation.textContent.replace(/[^0-9.]+/g, '').split('');
-	num2 = num2Raw.slice(num1.length).join('');
-	dspResult.textContent = operate(operator, num1, num2);
+	num2 = num2Raw.slice(num1.length).join('');	
+	result = operate(operator, num1, num2);
+	dspResult.textContent = result;
 	
 }
 
