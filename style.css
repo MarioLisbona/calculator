@@ -43,8 +43,8 @@ p {
 	align-items: flex-end;
 	margin-bottom: 10px;
 	min-height: 60px;
-	min-width: 400px;
 	padding-right: 15px;
+	padding-left: 15px;		
 }
 
 .keypad {
