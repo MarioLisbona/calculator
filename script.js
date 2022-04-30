@@ -41,7 +41,7 @@ buttons.forEach(button => button.addEventListener('mousedown', btnClickDown));
 buttons.forEach(button => button.addEventListener('mouseup', btnClickUp));
 
 function btnHover(e) {
-	this.style.backgroundColor = '#BCBCBD';
+	(e.target.id != 'btnEquals') ? this.style.backgroundColor = '#BCBCBD' : this.style.backgroundColor = '#ffb25a';
 }
 function btnDefault(e) {
 	this.style.backgroundColor = '';
