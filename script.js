@@ -1,3 +1,19 @@
+//global element selectors
+const dspOperation = document.querySelector('.display-operation');
+const dspResult = document.querySelector('.display-result');
+const btnClear = document.querySelector('#btnClear');
+const btnDelete = document.querySelector('#btnDelete');
+const btnEquals = document.querySelector('#btnEquals');
+const btnOperators = document.querySelectorAll('.operator');
+const btnNumbers = document.querySelectorAll('.number');
+
+//global variables for operator, num1, num2 and result
+let num1 = 0;
+let num2 = 0;
+let operator = '';
+let result = 0;
+
+//math operation functions
 function add(num1, num2) {
 	return parseInt(num1) + parseInt(num2);
 }
@@ -14,6 +30,7 @@ function divide(num1, num2) {
 	return num1 / num2;
 }
 
+//operate fucntions calls each math function based on what operator argument is passed
 function operate(operator, num1, num2){
 
 	switch(operator) {
@@ -32,7 +49,7 @@ function operate(operator, num1, num2){
 	}
 }
 
-//event listeners and functions for button animations
+//event listeners & functions for button animations
 const buttons = Array.from(document.querySelectorAll('.button'));
 
 buttons.forEach(button => button.addEventListener('mouseover', btnHover));
@@ -53,26 +70,13 @@ function btnClickUp(e) {
 	this.style.transform = '';
 }
 
-//global variables for operator, num1, num2 and result
-let num1 = 0;
-let num2 = 0;
-let operator = '';
-let result = 0;
-
 //functions for displaying numbers, deleting numbers, clearing the display
-const dspOperation = document.querySelector('.display-operation');
-const dspResult = document.querySelector('.display-result');
-const btnClear = document.querySelector('#btnClear');
-const btnDelete = document.querySelector('#btnDelete');
-const btnEquals = document.querySelector('#btnEquals');
-const btnOperators = document.querySelectorAll('.operator');
-const btnNumbers = document.querySelectorAll('.number');
-
 btnOperators.forEach(btnOp => btnOp.addEventListener('click', btnOperator));
 buttons.forEach(button => button.addEventListener('click', displayOperation));
+btnEquals.addEventListener('click', performCalculation);
 btnClear.addEventListener('click', clearDisplay);
 btnDelete.addEventListener('click', deleteEntry);
-btnEquals.addEventListener('click', performCalculation);
+
 
 function btnOperator(e) {
 	num1 = dspOperation.textContent.replace(/[^0-9.]+/g, '').split('').join('');
@@ -88,7 +92,10 @@ function btnOperator(e) {
 	// }
 	// console.log('num1 end op operator function', num1);
 	// console.log('result end op operator function', result);
+}
 
+function displayOperation(e) {
+	dspOperation.textContent += e.target.textContent;	
 }
 
 function performCalculation() {
@@ -97,10 +104,6 @@ function performCalculation() {
 	result = operate(operator, num1, num2);
 	dspResult.textContent = result;
 	
-}
-
-function displayOperation(e) {
-	dspOperation.textContent += e.target.textContent;	
 }
 
 function clearDisplay() {
@@ -117,10 +120,3 @@ function deleteEntry() {
 	let fString = rawString.replace(/[^0-9.]+/g, '').split('');	
 	dspOperation.textContent = fString.slice(0, -1).join('');
 }
-
-
-
-
-
-
-
