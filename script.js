@@ -1,5 +1,5 @@
 function add(num1, num2) {
-	return num1 + num2;
+	return parseInt(num1) + parseInt(num2);
 }
 
 function subtract(num1, num2) {
@@ -18,16 +18,16 @@ function operate(operator, num1, num2){
 
 	switch(operator) {
 		case '+':
-			console.log(add(num1, num2));
+			return add(num1, num2);
 			break;
 		case "-":
-			console.log(subtract(num1, num2));
+			return subtract(num1, num2);
 			break;
 		case "*":
-			console.log(multiply(num1, num2));
+			return multiply(num1, num2);
 			break;
 		case "/":
-			console.log(divide(num1, num2));
+			return divide(num1, num2);
 			break;
 	}
 }
@@ -41,31 +41,63 @@ buttons.forEach(button => button.addEventListener('mousedown', btnClickDown));
 buttons.forEach(button => button.addEventListener('mouseup', btnClickUp));
 
 function btnHover(e) {
-	this.style.backgroundColor = '#BCBCBD';
+	(e.target.id != 'btnEquals') ? this.style.backgroundColor = '#BCBCBD' : this.style.backgroundColor = '#ffb25a';
 }
-
 function btnDefault(e) {
 	this.style.backgroundColor = '';
 }
-
 function btnClickDown(e) {
 	this.style.transform = 'scale(.95)';
 }
-
 function btnClickUp(e) {
 	this.style.transform = '';
 }
+
+//global variables for operator, num1, num2 and result
+let num1 = 0;
+let num2 = 0;
+let operator = '';
+let result = 0;
 
 //functions for displaying numbers, deleting numbers, clearing the display
 const dspOperation = document.querySelector('.display-operation');
 const dspResult = document.querySelector('.display-result');
 const btnClear = document.querySelector('#btnClear');
 const btnDelete = document.querySelector('#btnDelete');
+const btnEquals = document.querySelector('#btnEquals');
+const btnOperators = document.querySelectorAll('.operator');
+const btnNumbers = document.querySelectorAll('.number');
 
-
+btnOperators.forEach(btnOp => btnOp.addEventListener('click', btnOperator));
 buttons.forEach(button => button.addEventListener('click', displayOperation));
 btnClear.addEventListener('click', clearDisplay);
 btnDelete.addEventListener('click', deleteEntry);
+btnEquals.addEventListener('click', performCalculation);
+
+function btnOperator(e) {
+	num1 = dspOperation.textContent.replace(/[^0-9.]+/g, '').split('').join('');
+	if (e.target.textContent === 'x') {
+		operator = '*'
+	} else {
+		operator = e.target.textContent;
+	}
+	
+	// console.log(result);
+	// if (result != 0) {
+	// 	num1 = result;
+	// }
+	// console.log('num1 end op operator function', num1);
+	// console.log('result end op operator function', result);
+
+}
+
+function performCalculation() {
+	let num2Raw = dspOperation.textContent.replace(/[^0-9.]+/g, '').split('');
+	num2 = num2Raw.slice(num1.length).join('');	
+	result = operate(operator, num1, num2);
+	dspResult.textContent = result;
+	
+}
 
 function displayOperation(e) {
 	dspOperation.textContent += e.target.textContent;	
@@ -73,6 +105,11 @@ function displayOperation(e) {
 
 function clearDisplay() {
 	dspOperation.textContent = '';
+	dspResult.textContent = '';
+	num1 = 0;
+	num2 = 0;
+	operator = '';
+	result = 0;
 }
 
 function deleteEntry() {
