@@ -35,6 +35,7 @@ function operate(operator, num1, num2){
 
 	switch(operator) {
 		case '+':
+			console.log('inside operate +', operator, num1, num2);	
 			return add(num1, num2);
 			break;
 		case "-":
@@ -86,33 +87,28 @@ function btnOperator(e) {
 		operator = e.target.textContent;
 	}
 	
-	// console.log(result);
-	// if (result != 0) {
-	// 	num1 = result;
-	// }
-	// console.log('num1 end op operator function', num1);
-	// console.log('result end op operator function', result);
+	if (result != 0) {
+		dspOperation.textContent = result;
+		num1 = result;
+	}
+	num2 = 0;
 }
 
 function displayOperation(e) {
 	dspOperation.textContent += e.target.textContent;	
 }
 
-function performCalculation() {
+function performCalculation() {	
 	let num2Raw = dspOperation.textContent.replace(/[^0-9.]+/g, '').split('');
 	num2 = num2Raw.slice(num1.length).join('');	
 	result = operate(operator, num1, num2);
 	dspResult.textContent = result;
-	
+
 }
 
 function clearDisplay() {
 	dspOperation.textContent = '';
 	dspResult.textContent = '';
-	num1 = 0;
-	num2 = 0;
-	operator = '';
-	result = 0;
 }
 
 function deleteEntry() {
