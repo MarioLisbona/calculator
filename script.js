@@ -23,7 +23,10 @@ buttons.forEach(button => button.addEventListener('mouseover', btnHover));
 buttons.forEach(button => button.addEventListener('mouseout', btnDefault));
 buttons.forEach(button => button.addEventListener('mousedown', btnClickDown));
 buttons.forEach(button => button.addEventListener('mouseup', btnClickUp));
+window.document.addEventListener('keydown', keyboardHover);
+window.document.addEventListener('keyup', keyboardDefault);
 
+//fucntions for mouseovers
 function btnHover(e) {
     (e.target.id != 'btnEquals') ? this.style.backgroundColor = '#BCBCBD' : this.style.backgroundColor = '#ffb25a';
 }
@@ -35,6 +38,21 @@ function btnClickDown(e) {
 }
 function btnClickUp(e) {
     this.style.transform = '';
+}
+
+
+//function for keyboard input animations
+function keyboardHover(e) {
+	console.log('inside hover if statment', e.key);
+    const keyboardTarget = document.getElementById(`btn${e.key}`);
+	keyboardTarget.style.backgroundColor = '#BCBCBD';
+	
+}
+
+function keyboardDefault(e) {
+	console.log('inside default if statment', e.key);
+    const keyboardTarget = document.getElementById(`btn${e.key}`);
+	keyboardTarget.style.backgroundColor = '';
 }
 
 
@@ -59,6 +77,16 @@ function addNumber(number) {
 function setOperator(operator) {
 	num1 = displayCurrent.textContent;
 	currentOperator = operator;
+	if (currentOperator === 'x') {
+		displayPrevious.textContent = `${num1} x`;
+		currentOperator = '*'
+		resetCurrentDisplay = true;
+	}
+	if (currentOperator === '%') {
+		currentOperator = '/';
+		resetCurrentDisplay = true;
+	}
+
 	displayPrevious.textContent = `${num1} ${operator}`;
 	resetCurrentDisplay = true;
 }
@@ -66,10 +94,7 @@ function setOperator(operator) {
 function performCalculation() {
 	displayPrevious.textContent += ` ${displayCurrent.textContent} =`;
 	num2 = displayCurrent.textContent;
-	console.log(num1, num2, currentOperator);
-
 	displayCurrent.textContent = operate(currentOperator, num1, num2);
-
 }
 
 function clearCurrentDisplay() {
@@ -93,29 +118,25 @@ function keyboardInput(event) {
 	}
 	if (event.key === '+') {
 		setOperator(event.key);
-		console.log('plus', event.key);
 	}
 	if (event.key === '-') {
 		setOperator(event.key);
-		console.log('minus', event.key);
 	}
 	if (event.key === '%') {
-		setOperator('/');
-		console.log('divide - need to use / not %', event.key);
+		setOperator(event.key);
 	}
 	if (event.key === 'x') {
-		setOperator('*');
-		console.log('multiply - need to use * not x', event.key);
+		setOperator(event.key);
 	}
-	if (event.key === '=') {
+	if (event.key === '=' || event.key === "Enter") {
 		performCalculation();
-		console.log('equals', event.key);
 	}
 	if (event.key === 'Backspace') {
 		deleteEntry();
-		console.log('delete', event.key);
 	}
+
 }
+
 
 
 
