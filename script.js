@@ -1,5 +1,4 @@
 //global element selectors
-
 const btnClear = document.querySelector('#btnClear');
 const btnDelete = document.querySelector('#btnDelete');
 const btnEquals = document.querySelector('#btnEquals');
@@ -15,8 +14,6 @@ let num2 = '';
 let currentOperator = null;
 let result = '';
 let resetCurrentDisplay = false;
-
-
 
 //event listeners & functions for button animations
 buttons.forEach(button => button.addEventListener('mouseover', btnHover));
@@ -40,19 +37,22 @@ function btnClickUp(e) {
     this.style.transform = '';
 }
 
-
 //function for keyboard input animations
 function keyboardHover(e) {
-	console.log('inside hover if statment', e.key);
+	//use e.key passed into function to isolat the key that was selected by id
+	//change style
     const keyboardTarget = document.getElementById(`btn${e.key}`);
 	keyboardTarget.style.backgroundColor = '#BCBCBD';
+	keyboardTarget.style.transform = 'scale(.95)';
 	
 }
 
 function keyboardDefault(e) {
-	console.log('inside default if statment', e.key);
+	//use e.key passed into function to isolat the key that was selected by id
+	//change style
     const keyboardTarget = document.getElementById(`btn${e.key}`);
 	keyboardTarget.style.backgroundColor = '';
+	keyboardTarget.style.transform = '';
 }
 
 
@@ -65,6 +65,8 @@ btnClear.addEventListener('click', resetDisplay);
 btnDelete.addEventListener('click', deleteEntry);
 displayCurrent.textContent = '0';
 
+//if statement to only reset screen after complete number has been selected
+//continue adding number inputs to current display screen
 function addNumber(number) {
 	if (resetCurrentDisplay === true || displayCurrent.textContent === '0') {
 		clearCurrentDisplay()
@@ -73,7 +75,9 @@ function addNumber(number) {
 	displayCurrent.textContent += number;
 }
 	
-
+//once operator has been selected, current display text content is assigned to num1
+//sets operator
+//if statement used to change % and x to / and * needed for calculations
 function setOperator(operator) {
 	num1 = displayCurrent.textContent;
 	currentOperator = operator;
@@ -87,14 +91,24 @@ function setOperator(operator) {
 		resetCurrentDisplay = true;
 	}
 
+	//update previous display and clear current display
 	displayPrevious.textContent = `${num1} ${operator}`;
 	resetCurrentDisplay = true;
 }
 
 function performCalculation() {
+	console.log(displayPrevious.textContent);	
+	if (displayPrevious.textContent === '') {
+		return;
+	}
 	displayPrevious.textContent += ` ${displayCurrent.textContent} =`;
 	num2 = displayCurrent.textContent;
-	displayCurrent.textContent = operate(currentOperator, num1, num2);
+	result = operate(currentOperator, num1, num2)
+	if (result %2 === 0) {
+		displayCurrent.textContent = result;
+	} else {
+		displayCurrent.textContent = result.toFixed(9);
+	}
 }
 
 function clearCurrentDisplay() {
@@ -107,11 +121,12 @@ function deleteEntry() {
 }
 
 function resetDisplay() {
-	displayCurrent.textContent = '';
+	displayCurrent.textContent = '0';
 	displayPrevious.textContent = '';
 
 }
 
+//handles keyboard input
 function keyboardInput(event) {
 	if (event.key >= 0 && event.key <= 9) {
 		addNumber(event.key);
